@@ -175,7 +175,7 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         foreach ($this->exceptionHandlers() as $class => $handler) {
-            if (is_subclass_of($exception, $class)) {
+            if (is_subclass_of($exception, $class) || \get_class($exception) === $class) {
                 $params = $handler($exception);
 
                 return $params instanceof Response
